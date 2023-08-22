@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ejemplo de tabla</title>
+    <style>
+      /* ! Colors */
+      :root {
+        --color-white: #ecedee;
+        --color-gray: #27272a;
+        --color-gray-secondary: #a1a1aa;
+        --color-gray-table: #18181b;
+        --color-gray-button: #27272a;
+        --color-blue-button: #0070f0;
+      }
+
+      /* ! Body */
+      .page {
+        background-color: #000000;
+        color: white;
+        font-family: "Roboto", sans-serif;
+        margin: 24px;
+      }
+
+      /* Elemento */
+      .page__text {
+        font-size: 18px;
+        line-height: 1.5;
+      }
+
+      /* ! Container */
+      /* Bloque */
+      .container {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      /* Elemento */
+      .container__item {
+        flex: 1;
+        padding: 10px;
+        border: 1px solid #ddd;
+        background-color: white;
+      }
+
+      /* ! H1 */
+
+      /* Bloque */
+      .title {
+        font-size: 24px;
+        margin-bottom: 10px;
+        font-weight: 300;
+      }
+
+      /* Modificador */
+      .title--large {
+        font-size: 36px;
+      }
+
+      .title--primary {
+        color: var(--color-white);
+      }
+
+      /* ! Table */
+
+      /* Bloque */
+      .table {
+        border-collapse: collapse;
+        width: 100%;
+        margin: 20px auto;
+        border-radius: 10px;
+        overflow: hidden;
+        background-color: var(--color-gray-table);
+      }
+
+      /* Elementos */
+      .table__header {
+        background-color: var(--color-gray);
+        border-radius: 10px;
+        color: var(--color-gray-secondary);
+        overflow: hidden;
+      }
+
+      .table__header-cell,
+      .table__cell {
+        padding: 16px;
+        text-align: left;
+        font-weight: 300;
+      }
+
+      /* Modificadores */
+      .table__cell {
+        color: var(--color-white);
+      }
+
+      /* !Imagen */
+
+      /* Bloque */
+      .image {
+        text-align: center;
+        margin: 20px;
+      }
+
+      /* Elemento */
+      .image__element {
+        max-width: 50px;
+        height: auto;
+        border-radius: 5px;
+        box-shadow: 2px 1px 20px 3px rgba(129, 141, 176, 0.54);
+        -webkit-box-shadow: 2px 1px 20px 3px rgba(129, 141, 176, 0.54);
+        -moz-box-shadow: 2px 1px 20px 3px rgba(129, 141, 176, 0.54);
+      }
+
+      /* ! Paginacion */
+      .pagination {
+        display: flex;
+        flex-direction: row;
+        align-items: center; /* v */
+        justify-content: center; /* h */
+      }
+
+      .pagination__button {
+        background-color: var(--color-gray-button);
+        border-radius: 10px;
+        border: none;
+        padding: 4px 10px;
+        font-size: 24px;
+        color: var(--color-white);
+        cursor: pointer;
+      }
+      .pagination__button:hover {
+        background-color: #0070f0;
+      }
+
+      .pagination__button:disabled {
+        background-color: var(--color-gray-button);
+        cursor: initial;
+      }
+
+      .pagination__current-page {
+        background-color: var(--color-blue-button);
+        border-radius: 10px;
+        border: none;
+        padding: 4px 10px;
+        font-size: 24px;
+        margin: 0px 4px;
+      }
+
+      .row {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+      }
+    </style>
+  </head>
+  <body class="page">
+    <main class="container">
+      <div class="row">
+        <div class="image">
+          <img
+            class="image__element"
+            src="./public/imagen.png"
+            alt="Imagen de ejemplo"
+          />
+        </div>
+        <h1 class="title title--large title--primary">Ejemplo de tabla</h1>
+      </div>
+      <table class="table">
+        <thead class="table__header">
+          <tr class="table__row">
+            <th class="table__header-cell">Name</th>
+            <th class="table__header-cell">Item Name</th>
+            <th class="table__header-cell">Item Price</th>
+          </tr>
+        </thead>
+        <tbody id="tableBody" class="table__body">
+          <tr class="table__row">
+            <td class="table__cell">Alvin</td>
+            <td class="table__cell">Eclair</td>
+            <td class="table__cell">$0.87</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="pagination">
+        <button
+          onclick="btnPrev()"
+          class="pagination__button pagination__prev"
+          id="prevBtn"
+        >
+          <
+        </button>
+        <span class="pagination__current-page" id="currentPage"></span>
+        <button
+          onclick="btnNext()"
+          class="pagination__button pagination__next"
+          id="nextBtn"
+        >
+          >
+        </button>
+      </div>
+    </main>
+  </body>
+  <script>
+    const rows = [
+      { name: "Alan", item: "Jellybean", price: "$3.76" },
+      { name: "Jonathan", item: "Lollipop", price: "$0.87" },
+      { name: "Emily", item: "Croissant", price: "$1.20" },
+      { name: "Daniel", item: "Macaron", price: "$1.50" },
+      { name: "Sophia", item: "Cupcake", price: "$1.10" },
+      { name: "Michael", item: "Donut", price: "$0.95" },
+      { name: "Olivia", item: "Brownie", price: "$1.25" },
+      { name: "William", item: "Muffin", price: "$1.05" },
+      { name: "Isabella", item: "Pie", price: "$2.00" },
+      { name: "James", item: "Cookie", price: "$0.75" },
+      { name: "Emma", item: "Scone", price: "$1.30" },
+      { name: "Benjamin", item: "Cannoli", price: "$1.70" },
+      { name: "Ava", item: "Cinnamon Roll", price: "$1.15" },
+      { name: "Liam", item: "Strudel", price: "$1.40" },
+      { name: "Mia", item: "Pretzel", price: "$1.00" },
+      { name: "Ethan", item: "Baklava", price: "$1.80" },
+      { name: "Harper", item: "Fritter", price: "$0.90" },
+      { name: "Alexander", item: "Danish", price: "$1.60" },
+      { name: "Evelyn", item: "Turnover", price: "$1.35" },
+      { name: "Sebastian", item: "Palmier", price: "$1.25" },
+      { name: "Charlotte", item: "Eclair", price: "$1.10" },
+      { name: "Jackson", item: "Croissant", price: "$1.40" },
+      { name: "Lucas", item: "Palmier", price: "$6.25" },
+      { name: "Johan", item: "Fritter", price: "$2.67" },
+      { name: "Tesla", item: "Danish", price: "$2.32" },
+    ];
+
+    let page = 0;
+
+    const table = document.getElementById("tableBody");
+    const currentPage = document.getElementById("currentPage");
+
+    function btnNext(evento) {
+      event.preventDefault();
+      page += 1;
+      pagination();
+    }
+
+    function btnPrev(evento) {
+      event.preventDefault();
+      page -= 1;
+      pagination();
+    }
+
+    function pagination() {
+      if (page === 0) {
+        prevBtn.disabled = true;
+      } else {
+        prevBtn.disabled = false;
+      }
+
+      if (page === 4) {
+        nextBtn.disabled = true;
+      } else {
+        nextBtn.disabled = false;
+      }
+
+      currentPage.textContent = page + 1;
+      table.innerHTML = " ";
+      const actualPage = page * 5;
+      for (let index = 0 + actualPage; index < 5 + actualPage; index++) {
+        const { name, item, price } = rows[index];
+        table.innerHTML += `<tr class="table__row">
+    <td class="table__cell">${name}</td>
+    <td class="table__cell">${item}</td>
+    <td class="table__cell">${price}</td>
+    </tr>`;
+      }
+    }
+
+    pagination();
+  </script>
+</html>
